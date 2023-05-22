@@ -14,11 +14,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import at.ac.fhcampuswien.newsapp.ui.NewsApp
 import at.ac.fhcampuswien.newsapp.ui.theme.NewsAppTheme
 import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
+import at.ac.fhcampuswien.newsapp.workmanager.PushNotificationWorkScheduler
+
 
 class MainActivity : ComponentActivity() {
+    private val pushNotificationWorkScheduler = PushNotificationWorkScheduler()
     private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pushNotificationWorkScheduler.scheduleNotificationWork(application)
         viewModel.getTopArticles()
         setContent {
             NewsAppTheme {
