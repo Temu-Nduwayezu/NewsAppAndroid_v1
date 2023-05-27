@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +20,6 @@ import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
 import at.ac.fhcampuswien.newsapp.data.models.Article
 import com.skydoves.landscapist.coil.CoilImage
 import at.ac.fhcampuswien.newsapp.R
-//import at.ac.fhcampuswien.newsapp.components.SearchBar
-
 
 @Composable
 fun TopNews(navController: NavController, articles:List<Article>, query: MutableState<String>,
@@ -37,7 +34,7 @@ fun TopNews(navController: NavController, articles:List<Article>, query: Mutable
         LazyColumn {
             items(resultList.size) { index ->
                 TopNewsItem(article = resultList[index],
-                    onNewsClick = { navController.navigate("Detail/$index") }
+                    onNewsClick = { navController.navigate(Screen.Detail.route + "/$index") }
                 )
             }
         }
@@ -75,3 +72,4 @@ fun TopNewsItem(article: Article, onNewsClick: () -> Unit = {},) {
             )
         }}
 }
+

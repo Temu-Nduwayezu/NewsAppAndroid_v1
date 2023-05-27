@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import at.ac.fhcampuswien.newsapp.R
+import at.ac.fhcampuswien.newsapp.data.models.BottomMenuScreen
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -29,7 +30,10 @@ fun SplashScreen(navController: NavController) {
         )
 
         if (logoAnimationState.isAtEnd && logoAnimationState.isPlaying) {
-            navController.navigate("top news")
+            navController.navigate(BottomMenuScreen.TopNews.route) {
+                navController.popBackStack()
+            }
         }
     }
 }
+

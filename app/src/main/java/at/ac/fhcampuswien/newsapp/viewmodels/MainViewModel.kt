@@ -16,7 +16,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _newsResponse = MutableStateFlow(NewsResponse())
     val newsResponse: StateFlow<NewsResponse>
-    get() = _newsResponse
+        get() = _newsResponse
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading

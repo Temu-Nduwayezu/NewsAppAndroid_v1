@@ -11,20 +11,23 @@ import at.ac.fhcampuswien.newsapp.components.Menu
 import at.ac.fhcampuswien.newsapp.navigation.Navigation
 
 
-
 @Composable
 fun NewsApp(mainViewModel: MainViewModel) {
     val scrollState = rememberScrollState()
     val navController = rememberNavController()
 
-    MainScreen(navController = navController,scrollState,mainViewModel)
+    MainScreen(navController, scrollState, mainViewModel)
 }
 
 @Composable
-fun MainScreen(navController: NavHostController,scrollState: ScrollState,mainViewModel: MainViewModel) {
-    Scaffold(bottomBar ={
-        Menu(navController = navController)
+fun MainScreen(
+    navController: NavHostController,
+    scrollState: ScrollState,
+    mainViewModel: MainViewModel
+) {
+    Scaffold(bottomBar = {
+        Menu(navController)
     }) {
-        Navigation(navController =navController , scrollState =scrollState,paddingValues = it,mainViewModel = mainViewModel )
+        Navigation(navController, scrollState, paddingValues = it, mainViewModel)
     }
 }
