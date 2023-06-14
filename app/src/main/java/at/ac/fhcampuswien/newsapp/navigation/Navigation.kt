@@ -41,19 +41,20 @@ fun Navigation(
             SplashScreen(navController)
         }
 
-        composable(Screen.Detail.route + "/{index}",
-            arguments = listOf( //ListOf refers to the arguments parameter
-                navArgument("index") { type = NavType.IntType }
-            )) { navBackStackEntry ->
-            val index = navBackStackEntry.arguments?.getInt("index")
+        composable(Screen.Detail.route,
+            arguments = listOf(
+                navArgument(name = DETAIL_ARGUMENT_KEY) { type = NavType.IntType }
+            )
+        ) { navBackStackEntry ->
+            val index = navBackStackEntry.arguments?.getInt(DETAIL_ARGUMENT_KEY)
 
-            // original top articles.
-            index?.let {
-                articles.clear()
-                articles.addAll(topArticles ?: listOf())
-
-                val article = articles[index]
-                DetailScreen(article, scrollState, navController)
+            index?.let { articleIndex ->
+                val article = articles.getOrNull(articleIndex)
+                if (article != null) {
+                    DetailScreen(article, scrollState, navController)
+                } else {
+                    // Handle invalid index or article not found
+                }
             }
         }
     }
@@ -70,8 +71,22 @@ fun NavGraphBuilder.bottomNavigation(
     composable(BottomMenuScreen.TopNews.route) {
         TopNews(navController, articles, query, viewModel)
     }
+    composable(BottomMenuScreen.Categories.route){
+      // viewModel.getArticlesByCategory("general")
+    //    viewModel.onSelectedCategoryChanged("general")
+        CategoriesScreen( viewModel = viewModel, onFetchCategory = {
+                viewModel.onSelectedCategoryChanged(it)
+                viewModel.getArticlesByCategory(it)
+            },
 
-    composable(BottomMenuScreen.Sources.route) {
+            navController = navController
+        )
+    }
+
+    composable(BottomMenuScreen.Sources.route){
         Sources(viewModel)
     }
 }
+
+
+

@@ -18,6 +18,11 @@ class NewsController(private val service: NewsService) {
         service.getTopArticles(country)
     }
 
+    suspend fun getArticlesByCategory(category: String): NewsResponse = withContext(Dispatchers.IO) {
+        service.getArticlesByCategory(category)
+    }
+
+
     suspend fun getSearchedArticles(query: String):NewsResponse = withContext(Dispatchers.IO){
         service.searchArticles(query)
     }

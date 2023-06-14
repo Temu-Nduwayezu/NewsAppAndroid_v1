@@ -18,6 +18,7 @@ import at.ac.fhcampuswien.newsapp.R
 fun Menu(navController:NavController) {
     val menuItems = listOf(
         BottomMenuScreen.TopNews,
+        BottomMenuScreen.Categories,
         BottomMenuScreen.Sources
     )
     BottomNavigation(contentColor = colorResource(id = R.color.white))

@@ -8,8 +8,12 @@ class Repository(private val newsController: NewsController) {
 
     suspend fun getArticles() = newsController.getArticles("us")
 
+
+    suspend fun getArticleByCategory(category: String) = newsController.getArticlesByCategory(category = category)
+
     suspend fun getArticlesBySource(source:String) = newsController.getArticleBySource(source = source)
 
     suspend fun getSearchedArticles(query:String) = newsController.getSearchedArticles(query = query)
 
-}
+    }
+

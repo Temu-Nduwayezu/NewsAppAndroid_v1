@@ -20,6 +20,7 @@ import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
 import at.ac.fhcampuswien.newsapp.data.models.Article
 import com.skydoves.landscapist.coil.CoilImage
 import at.ac.fhcampuswien.newsapp.R
+import at.ac.fhcampuswien.newsapp.ui.screen.Screen.Detail.withId
 
 @Composable
 fun TopNews(navController: NavController, articles:List<Article>, query: MutableState<String>,
@@ -34,7 +35,8 @@ fun TopNews(navController: NavController, articles:List<Article>, query: Mutable
         LazyColumn {
             items(resultList.size) { index ->
                 TopNewsItem(article = resultList[index],
-                    onNewsClick = { navController.navigate(Screen.Detail.route + "/$index") }
+                    onNewsClick = { navController.navigate(withId(index)) }
+
                 )
             }
         }

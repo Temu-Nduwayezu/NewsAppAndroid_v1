@@ -11,3 +11,5 @@ data class Article(
     val publishedAt : String? = null,
     val content : String? = null
 )
+
+

@@ -10,7 +10,10 @@ interface NewsService {
 
     @GET("top-headlines")
     suspend fun getTopArticles(@Query("country") country:String): NewsResponse
-
+    @GET("top-headlines")
+    suspend fun getArticlesByCategory(@Query("category") category: String,
+                                      @Query("language") language: String = "en"
+    ): NewsResponse
 
     @GET("everything")
     suspend fun searchArticles(@Query("q") country:String):NewsResponse
