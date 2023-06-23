@@ -26,7 +26,7 @@ object NewsApi {
             Interceptor{chain->
            val builder = chain.request().newBuilder()
                 //TODO please change the API key to yours
-               builder.header("X-Api-Key","85c879dd456a439f8724f6749516282c")
+               builder.header("X-Api-Key","ca107e63e79349f88f3dea1d5f588d2a")
                return@Interceptor chain.proceed(builder.build())
             }
         )

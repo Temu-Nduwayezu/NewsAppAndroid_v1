@@ -24,16 +24,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import at.ac.fhcampuswien.newsapp.R
+import at.ac.fhcampuswien.newsapp.components.ArticleContent
 import at.ac.fhcampuswien.newsapp.data.models.Article
+import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
 import com.skydoves.landscapist.coil.CoilImage
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun DetailScreen(article: Article, scrollState: ScrollState, navController: NavController) {
+fun DetailScreen(article: Article, scrollState: ScrollState, navController: NavController,  viewModel:MainViewModel) {
     val context = LocalContext.current //we pass it to 81. as a parameter so that there is access to MainActivity
     //LocalContext refers to the context from which we can start the Activity
     //We can call LocalContext only from the @Composable element.
+
+
+
+
+
 
     Scaffold(topBar = {
         DetailTopAppBar(
@@ -67,6 +74,7 @@ fun DetailScreen(article: Article, scrollState: ScrollState, navController: NavC
                 text = article.description ?: "Not Available",
                 modifier = Modifier.padding(top = 16.dp)
             )
+
         }
     }
 }

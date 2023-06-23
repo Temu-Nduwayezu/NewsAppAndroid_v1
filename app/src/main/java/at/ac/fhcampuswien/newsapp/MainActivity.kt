@@ -25,7 +25,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NewsAppTheme {
-                // A surface container using the 'background' color from the theme
+                // A surface container using the 'background' color from the theme(dark and light theme)
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
