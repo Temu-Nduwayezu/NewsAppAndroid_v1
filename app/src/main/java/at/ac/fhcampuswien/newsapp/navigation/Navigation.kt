@@ -49,6 +49,14 @@ fun Navigation(
             val index = navBackStackEntry.arguments?.getInt(DETAIL_ARGUMENT_KEY)
 
             index?.let { articleIndex ->
+                if (queryState.value.isNotBlank()) {
+                    articles.clear()
+                    articles.addAll(mainViewModel.searchedNewsResponse.collectAsState().value.articles ?: listOf())
+                } else {
+                    articles.clear()
+                    articles.addAll(topArticles ?: listOf())
+                }
+
                 val article = articles.getOrNull(articleIndex)
                 if (article != null) {
                     DetailScreen(article, scrollState, navController,mainViewModel)
