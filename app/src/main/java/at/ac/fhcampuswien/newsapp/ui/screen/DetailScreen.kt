@@ -32,16 +32,10 @@ import com.skydoves.landscapist.coil.CoilImage
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun DetailScreen(article: Article, scrollState: ScrollState, navController: NavController,  viewModel:MainViewModel) {
+fun DetailScreen(article: Article, scrollState: ScrollState, navController: NavController, mainViewModel: MainViewModel) {
     val context = LocalContext.current //we pass it to 81. as a parameter so that there is access to MainActivity
     //LocalContext refers to the context from which we can start the Activity
     //We can call LocalContext only from the @Composable element.
-
-
-
-
-
-
     Scaffold(topBar = {
         DetailTopAppBar(
             onSharePressed = { share(context, article) },

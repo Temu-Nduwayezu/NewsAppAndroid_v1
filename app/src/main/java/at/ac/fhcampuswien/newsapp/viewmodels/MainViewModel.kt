@@ -52,7 +52,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _selectedCategory.value = newCategory
     }
 
+
+
     //start
     val query = MutableStateFlow("")
+
+    private val _searchedNewsResponse =
+        MutableStateFlow(NewsResponse())
+    val searchedNewsResponse: StateFlow<NewsResponse>
+        get() = _searchedNewsResponse
+    //end
+
+
+    fun getSearchedArticles(query:String){
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            _searchedNewsResponse.value = repository.getSearchedArticles(query)
+        }
+        _isLoading.value = true
+    }
 
 }

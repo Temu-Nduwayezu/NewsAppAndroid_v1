@@ -51,7 +51,7 @@ fun Navigation(
             index?.let { articleIndex ->
                 val article = articles.getOrNull(articleIndex)
                 if (article != null) {
-                    DetailScreen(article, scrollState, navController)
+                    DetailScreen(article, scrollState, navController,mainViewModel)
                 } else {
                     // Handle invalid index or article not found
                 }

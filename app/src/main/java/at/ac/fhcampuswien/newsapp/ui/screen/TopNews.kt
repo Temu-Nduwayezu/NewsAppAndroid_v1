@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,7 @@ import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
 import at.ac.fhcampuswien.newsapp.data.models.Article
 import com.skydoves.landscapist.coil.CoilImage
 import at.ac.fhcampuswien.newsapp.R
+import at.ac.fhcampuswien.newsapp.components.SearchBar
 import at.ac.fhcampuswien.newsapp.ui.screen.Screen.Detail.withId
 
 @Composable
@@ -28,10 +30,17 @@ fun TopNews(navController: NavController, articles:List<Article>, query: Mutable
 ) {
     Column(modifier = Modifier.fillMaxSize(),horizontalAlignment = Alignment.CenterHorizontally) {
 
-
-        //val searchedText = query.value
+        SearchBar(query = query,viewModel = viewModel)
+        val searchedText = query.value
         val resultList = mutableListOf<Article>()
-        resultList.addAll(articles)
+        //If the search query is not empty,
+        // it filters the articles based on the search query using the viewModel.searchedNewsResponse LiveData.
+        if (searchedText != "") {
+            //collect searchedNewsResponse from viwModel
+            resultList.addAll(viewModel.searchedNewsResponse.collectAsState().value.articles?: articles)
+        }else{
+            resultList.addAll(articles)
+        }
         LazyColumn {
             items(resultList.size) { index ->
                 TopNewsItem(article = resultList[index],
