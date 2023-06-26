@@ -3,6 +3,7 @@ package at.ac.fhcampuswien.newsapp.ui.screen
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
@@ -117,6 +118,23 @@ fun DetailScreen(
                     text = article.description ?: "Not Available",
                     modifier = Modifier.padding(top = 16.dp)
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = {
+                        // Open full article in browser or navigate to a web view
+                        val articleUrl = article.url
+                        Log.d("DetailsScreen", "Received article ID: $articleUrl")
+                        if (!articleUrl.isNullOrEmpty()) {
+                            // Launch browser or navigate to web view
+
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(articleUrl))
+                            context.startActivity(intent)
+                        }
+                    },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Text(text = "Read Full Article")
+                }
 
             }
         }
