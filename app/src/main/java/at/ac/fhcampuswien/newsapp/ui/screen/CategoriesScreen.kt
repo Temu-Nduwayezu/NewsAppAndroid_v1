@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,10 +45,10 @@ fun CategoriesScreen(
 
     val tabsItems = getAllArticleCategory()
     val selectedCategory by viewModel.selectedCategory.collectAsState()
-    val searchedArticles by viewModel.searchedNewsResponse.collectAsState()
     val fetchedArticles by viewModel.getArticleByCategory.collectAsState()
     //  val queryState: MutableState<String> by viewModel.query.collectAsState()
-    val queryState:   MutableState<String> = remember { mutableStateOf("") }
+    var searchQuery by remember { mutableStateOf("")
+    }
     val selectedCategoryValue by viewModel.selectedCategory.collectAsState()
 // Call the getArticlesByCategory function when the selected category changes
     LaunchedEffect(selectedCategory) {
@@ -56,6 +57,7 @@ fun CategoriesScreen(
         }
     }
     Column {
+
       //   SearchBar(query = queryState, viewModel = viewModel)
         LazyRow {
             items(tabsItems.size) { index ->

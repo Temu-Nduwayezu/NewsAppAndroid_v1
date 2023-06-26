@@ -53,6 +53,7 @@ fun DetailScreen(
     val isLoading by mainViewModel.isLoading.collectAsState()
     val searchedNewsResponse by mainViewModel.searchedNewsResponse.collectAsState()
     val getArticleByCategory by mainViewModel.getArticleByCategory.collectAsState()
+    val getArticleBySource by mainViewModel.getArticleBySource.collectAsState()
 
     val queryState by mainViewModel.query.collectAsState()
     val selectedCategoryValue by mainViewModel.selectedCategory.collectAsState()
@@ -77,6 +78,7 @@ fun DetailScreen(
             newsResponse.articles?.any { it.id == id } == true -> newsResponse.articles!!.find { it.id == id }
             getArticleByCategory.articles?.any { it.id == id } == true -> getArticleByCategory.articles!!.find { it.id == id }
             searchedNewsResponse.articles?.any { it.id == id } == true -> searchedNewsResponse.articles!!.find { it.id == id }
+            getArticleBySource.articles?.any { it.id == id } == true -> getArticleBySource.articles!!.find { it.id == id }
             else -> null
         }
     }

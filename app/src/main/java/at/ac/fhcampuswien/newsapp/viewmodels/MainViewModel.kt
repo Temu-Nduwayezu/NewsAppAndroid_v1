@@ -84,4 +84,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         this.query.value = query
     }
 
+
+    // source
+    private val _sourceName = MutableStateFlow("reuters")
+    val sourceName: StateFlow<String>
+        get() = _sourceName
+
+    private val _getArticleBySource = MutableStateFlow(NewsResponse())
+    val getArticleBySource: StateFlow<NewsResponse>
+        get() = _getArticleBySource
+
+
+    fun getArticleBySource() {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            _getArticleBySource.value = repository.getArticlesBySource(source = sourceName.value)
+        }
+        _isLoading.value = false
+    }
+
+    fun updateSourceName(sourceName: String) {
+        _sourceName.value = sourceName
+    }
 }

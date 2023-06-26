@@ -79,7 +79,7 @@ fun NavGraphBuilder.bottomNavigation(
     }
 
     composable(BottomMenuScreen.Sources.route){
-        Sources(viewModel)
+        Sources(navController, viewModel)
     }
 }
 
