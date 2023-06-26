@@ -1,5 +1,7 @@
 package at.ac.fhcampuswien.newsapp.data.models
 
+import at.ac.fhcampuswien.newsapp.utils.getArticleIdFromUrl
+
 
 data class Article(
     val source : Source? = null,
@@ -11,5 +13,8 @@ data class Article(
     val publishedAt : String? = null,
     val content : String? = null
 )
-
+{
+    val id: String
+        get() = url?.let { getArticleIdFromUrl(it) } ?: ""
+}
 

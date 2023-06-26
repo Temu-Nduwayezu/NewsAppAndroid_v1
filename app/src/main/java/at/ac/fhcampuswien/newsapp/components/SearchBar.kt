@@ -23,7 +23,7 @@ import at.ac.fhcampuswien.newsapp.viewmodels.MainViewModel
 
 
 @Composable
-fun SearchBar(query: MutableState<String>,viewModel: MainViewModel) {
+fun SearchBar(query: MutableState<String>, viewModel: MainViewModel) {
     val localFocusManager = LocalFocusManager.current
     Card(elevation = 6.dp,shape = RoundedCornerShape(4.dp),modifier = Modifier
         .fillMaxWidth()

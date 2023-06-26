@@ -9,10 +9,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import at.ac.fhcampuswien.newsapp.data.models.BottomMenuScreen
 import at.ac.fhcampuswien.newsapp.R
-
 
 @Composable
 fun Menu(navController:NavController) {
@@ -25,30 +25,32 @@ fun Menu(navController:NavController) {
     {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
-        menuItems.forEach {
+        //  val currentScreen = getCurrentScreen(navController)
+        menuItems.forEach { menuItem ->
+            val selected = currentRoute == menuItem.route
             BottomNavigationItem(
-                label = { Text(text = it.title) },
+                label = { Text(text = menuItem.title) },
                 alwaysShowLabel = true,
                 selectedContentColor = Color.White,
                 unselectedContentColor = Color.Gray,
-                selected = currentRoute == it.route,
+                selected = selected,
                 onClick = {
-                    navController.navigate(it.route) {
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route) {
+                    if (!selected) {
+                        navController.navigate(menuItem.route) {
+                            popUpTo(navController.graph.startDestinationRoute!!) {
                                 saveState = true
+                                inclusive = true
+
                             }
-                            //navigate back to TopNews
-                            popUpTo(BottomMenuScreen.TopNews.route) { inclusive = true }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
                     }
                 },
                 icon = {
                     Icon(
-                        imageVector = it.icon,
-                        contentDescription = it.title
+                        imageVector = menuItem.icon,
+                        contentDescription = menuItem.title
                     )
                 },
 
@@ -56,4 +58,7 @@ fun Menu(navController:NavController) {
 
         }
     }
+}
+fun getCurrentScreen(navController: NavController): String? {
+    return navController.currentBackStackEntry?.destination?.route
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import at.ac.fhcampuswien.newsapp.MainApp
 import at.ac.fhcampuswien.newsapp.data.models.ArticleCategory
 import at.ac.fhcampuswien.newsapp.data.models.NewsResponse
+import at.ac.fhcampuswien.newsapp.data.models.ScreenType
 import at.ac.fhcampuswien.newsapp.data.models.getArticleCategory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,12 +24,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    //current screen property
+    private val _currentScreen = MutableStateFlow(ScreenType.TOP_NEWS)
+   val currentScreen: StateFlow<ScreenType>
+     get() = _currentScreen
+
     fun getTopArticles(){
         _isLoading.value  = true
         viewModelScope.launch(Dispatchers.IO) {
             _newsResponse.value = repository.getArticles()
         }
         _isLoading.value = false
+        _currentScreen.value = ScreenType.TOP_NEWS // Update current screen
     }
 
     private val _selectedCategory:MutableStateFlow<ArticleCategory?> = MutableStateFlow(null)
@@ -45,6 +52,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _getArticleByCategory.value = repository.getArticleByCategory(category =category )
         }
         _isLoading.value = false
+        _currentScreen.value = ScreenType.CATEGORY_NEWS
     }
 
     fun onSelectedCategoryChanged(category:String){
@@ -70,6 +78,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _searchedNewsResponse.value = repository.getSearchedArticles(query)
         }
         _isLoading.value = true
+        _currentScreen.value = ScreenType.SEARCH_NEWS
+    }
+    fun updateQuery(query: String) {
+        this.query.value = query
     }
 
 }
