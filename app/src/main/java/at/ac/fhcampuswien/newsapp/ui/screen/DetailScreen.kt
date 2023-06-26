@@ -42,7 +42,7 @@ fun DetailScreen(
     navController: NavController,
     mainViewModel: MainViewModel,
     articleId: String?,
-    currentScreen: ScreenType
+   // currentScreen: ScreenType
     //url: String?,
 ) {
     Log.d("DetailsScreen", "Received article ID: $articleId")
@@ -53,12 +53,11 @@ fun DetailScreen(
     val searchedNewsResponse by mainViewModel.searchedNewsResponse.collectAsState()
     val getArticleByCategory by mainViewModel.getArticleByCategory.collectAsState()
 
-/*
-    val article = index?.let { newsResponse.articles?.getOrNull(it) }
-    var article= index?.let  {searchedNewsResponse.articles?.getOrNull((it))}
-     var article= index?.let  {getArticleByCategory.articles?.getOrNull((it))}*/
+    val queryState by mainViewModel.query.collectAsState()
+    val selectedCategoryValue by mainViewModel.selectedCategory.collectAsState()
 
-    val article = when (currentScreen) {
+
+  /*  val article = when (currentScreen) {
         ScreenType.TOP_NEWS -> articleId?.let { id ->
             newsResponse.articles?.find { it.id == id }
         }
@@ -70,6 +69,15 @@ fun DetailScreen(
         }
         else -> null
 
+    }
+    */
+    val article = articleId?.let { id ->
+        when {
+            newsResponse.articles?.any { it.id == id } == true -> newsResponse.articles!!.find { it.id == id }
+            getArticleByCategory.articles?.any { it.id == id } == true -> getArticleByCategory.articles!!.find { it.id == id }
+            searchedNewsResponse.articles?.any { it.id == id } == true -> searchedNewsResponse.articles!!.find { it.id == id }
+            else -> null
+        }
     }
         article?.let {
             val scrollState = rememberScrollState()

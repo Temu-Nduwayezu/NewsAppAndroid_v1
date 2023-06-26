@@ -45,9 +45,11 @@ fun Navigation(
             arguments = listOf(navArgument(name = DETAIL_ARGUMENT_KEY) { type = NavType.StringType })
         ) { navBackStackEntry ->
             val articleId = navBackStackEntry.arguments?.getString(DETAIL_ARGUMENT_KEY)
-            val currentScreen = mainViewModel.currentScreen.collectAsState().value
+            //val currentScreen = mainViewModel.currentScreen.collectAsState().value
             //val url = navBackStackEntry.arguments?.getString(DETAIL_ARGUMENT_KEY)
-            DetailScreen(navController, mainViewModel,articleId,currentScreen)
+            DetailScreen(navController, mainViewModel,articleId,
+                //currentScreen
+            )
         }
 
     }

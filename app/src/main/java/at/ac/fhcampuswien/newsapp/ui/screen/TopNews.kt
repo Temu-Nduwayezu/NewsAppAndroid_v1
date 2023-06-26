@@ -36,11 +36,8 @@ fun TopNews(
     val query: MutableState<String> = remember { mutableStateOf("") }
     val displayedArticles = remember { mutableStateListOf<Article>() }
 
-    val currentScreen by viewModel.currentScreen.collectAsState()
+    //val currentScreen by viewModel.currentScreen.collectAsState()
 
-    // Use rememberSaveable to store the selected article ID
-   // val selectedArticleId = rememberSaveable { mutableStateOf("") }
-    val selectedArticleId = remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize(),horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -48,7 +45,7 @@ fun TopNews(
         val searchedText = query.value
         //If the search query is not empty,
         // it filters the articles based on the search query using the viewModel.searchedNewsResponse LiveData.
-         if (searchedText != "" && currentScreen == ScreenType.SEARCH_NEWS) {
+         if (searchedText != "" && query.value.isNotEmpty() ) {
             //collect searchedNewsResponse from viwModel
              displayedArticles.clear()
              displayedArticles.addAll(searchedArticles.articles ?: emptyList())
@@ -62,7 +59,6 @@ fun TopNews(
                     article = article,
                     onNewsClick = {
                         // Store the selected article ID in the rememberSaveable variable
-                       selectedArticleId.value = article.id
                        // val url = article.url ?: "" // Provide a default non-null value
                        // val encodedUrl = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString())
                         navController.navigate(Screen.Detail.withUrlId(article.id))
